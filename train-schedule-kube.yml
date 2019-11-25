@@ -6,6 +6,7 @@ spec:
   type: NodePort
   selector:
     app: train-schedule
+    track: stable
   ports:
   - protocol: TCP
     port: 8080
