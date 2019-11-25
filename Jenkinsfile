@@ -41,7 +41,7 @@ pipeline {
             when {
                 branch 'master'
             }
-            environmet {
+            environment {
                 CANARY_REPLICAS = 1
             }
             steps {
@@ -56,7 +56,7 @@ pipeline {
             when {
                 branch 'master'
             }
-            environmet {
+            environment {
                 CANARY_REPLICAS = 0
             }
             steps {
