@@ -24,7 +24,15 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+        stage('ScanDockerImage') {
+            when {
+                branch 'master'
+            }
+            steps {
+                aquaMicroscanner imageName: 'DOCKER_IMAGE_NAME', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'json'
+            }
+        }
+        stage('PushDockerImage') {
             when {
                 branch 'master'
             }
