@@ -29,7 +29,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                aquaMicroscanner imageName: DOCKER_IMAGE_NAME, notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'json'
+                aquaMicroscanner imageName: DOCKER_IMAGE_NAME, notCompliesCmd: '', onDisallowed: 'ignore', outputFormat: 'html'
             }
         }
         stage('PushDockerImage') {
