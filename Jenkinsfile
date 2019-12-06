@@ -20,9 +20,9 @@ pipeline {
                 timeout(time: 1, unit: 'HOURS') { // timeout de espera al analisis
                     script {
                         def qg = waitForQualityGate()
-                    }
-                    if (qg.status != 'OK') {
-                        error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
+                        if (qg.status != 'OK') {
+                            error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
+                        }
                     }
                 }
             }
