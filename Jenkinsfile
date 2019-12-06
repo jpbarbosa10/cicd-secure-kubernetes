@@ -15,6 +15,14 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Quality Gate') {
+        timeout(time: 1, unit: 'HOURS') { // timeout de espera al analisis
+            def qg = waitForQualityGate()
+            if (qg.status != 'OK') {
+                error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
+            }
+        }
+        }
         stage('Build') {
             steps {
                 echo 'Running build automation'
