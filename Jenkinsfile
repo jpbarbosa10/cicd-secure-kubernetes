@@ -14,11 +14,12 @@ pipeline {
                     withSonarQubeEnv('sonarqube') {
                         sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=application-test"
                     }
-
-                    sleep(10)
-                    qg = waitForQualityGate() // resultado del analisis
-                    if (qg.status != 'OK') {
-                        error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
+                    script {     
+                        sleep(10)
+                        def qg = waitForQualityGate() // resultado del analisis
+                        if (qg.status != 'OK') {
+                            error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
+                        }
                     }
                 }
             }
