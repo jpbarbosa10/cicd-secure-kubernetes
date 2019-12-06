@@ -6,23 +6,19 @@ pipeline {
     stages {
         stage('SonarQube Analysis') {
             steps {
-                script {
-                  // debe estar configurado en Global Tool Configuration
-                  scannerHome = tool 'sonarscanner'
-                }
-                withSonarQubeEnv('sonarqube') {
-                  sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=application-test"
-                }
-            }
-        }
-        stage('SonarQube Quality Gate') {
-            steps {
                 timeout(time: 1, unit: 'HOURS') { // timeout de espera al analisis
                     script {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
-                        }
+                    // debe estar configurado en Global Tool Configuration
+                    scannerHome = tool 'sonarscanner'
+                    }
+                    withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=application-test"
+                    }
+
+                    sleep(10)
+                    def qg = waitForQualityGate() // resultado del analisis
+                    if (qg.status != 'OK') {
+                        error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
                     }
                 }
             }
