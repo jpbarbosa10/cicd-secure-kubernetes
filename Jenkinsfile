@@ -20,7 +20,7 @@ pipeline {
                    //     if (qg.status != 'OK') {
                    //         error "Flujo detenido, no cumple los criterios de calidad y seguridad: ${qg.status}"
                    //     }
-                    }
+                   // }
                 }
             }
         }
