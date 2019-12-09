@@ -59,7 +59,7 @@ pipeline {
             // Se indica la imagen y la ruta del archivo DockerFile en el directorio anchore_images para realizar el escan de la imagen.
             steps {
                 sh 'echo "docker.io/juanpab/application-test `pwd`/Dockerfile" > anchore_images'
-                anchore name: 'anchore_images'
+                anchore name: 'anchore_images', policyBundleId: 'anchore_security_only'
             }
         }
         stage('PushDockerImage') {
